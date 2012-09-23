@@ -4,6 +4,7 @@
 	"keywords": ["dom", "php dom"],
 	"homepage": "http://simplehtmldom.sourceforge.net/",
 	"type": "library",
+	"version": "1.5",
 	"authors": [
 		{
 			"name": "S.C. Chen",
