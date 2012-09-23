@@ -5,6 +5,9 @@
 	"homepage": "http://simplehtmldom.sourceforge.net/",
 	"type": "library",
 	"version": "1.5",
+	"require":{
+		"php":">=5.2.4"
+	},
 	"authors": [
 		{
 			"name": "S.C. Chen",
@@ -13,11 +16,6 @@
 		}
 	],
 	"autoload": {
-		"psr-0": {
-			"simple_html_dom": ""
-		}
-	},
-	"include-path": [
-		""
-	]
+		"files": ["simple_html_dom.php"]
+	}
 }
