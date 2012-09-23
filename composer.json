@@ -1,0 +1,19 @@
+{
+	"name": "shark/simple_html_dom",
+	"description": "Simple HTML DOM package.",
+	"keywords": ["dom", "php dom"],
+	"homepage": "http://simplehtmldom.sourceforge.net/",
+	"type": "library",
+	"authors": [
+		{
+			"name": "S.C. Chen",
+			"email": "me578022@gmail.com",
+			"homepage": "http://simplehtmldom.sourceforge.net/",
+		}
+	],
+	"autoload": {
+		"psr-0": {
+			"simple_html_dom": ""
+		}
+	}
+}
