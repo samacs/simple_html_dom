@@ -14,7 +14,10 @@
 	],
 	"autoload": {
 		"psr-0": {
-			"simple_html_dom": "simple_html_dom.php"
+			"simple_html_dom": ""
 		}
-	}
+	},
+	"include-path": [
+		""
+	]
 }
