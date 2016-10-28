@@ -1712,7 +1712,7 @@ class simple_html_dom
     function childNodes($idx=-1) {return $this->root->childNodes($idx);}
     function firstChild() {return $this->root->first_child();}
     function lastChild() {return $this->root->last_child();}
-    function createElement($name, $value=null) {return @str_get_html("<$name>$value</$name>")->first_child();}
+    function createElement($name, $value=null) {return @str_get_html("<$name>$value</$name>")/*->first_child()*/;}
     function createTextNode($value) {return @end(str_get_html($value)->nodes);}
     function getElementById($id) {return $this->find("#$id", 0);}
     function getElementsById($id, $idx=null) {return $this->find("#$id", $idx);}
