@@ -74,10 +74,48 @@ function file_get_html($url, $use_include_path = false, $context=null, $offset =
 {
     // We DO force the tags to be terminated.
     $dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
-    // For sourceforge users: uncomment the next line and comment the retreive_url_contents line 2 lines down if it is not already done.
-    $contents = file_get_contents($url, $use_include_path, $context, $offset);
-    // Paperg - use our own mechanism for getting the contents as we want to control the timeout.
-    //$contents = retrieve_url_contents($url);
+
+	do {
+		$repeat = false;
+		if ($context!==NULL)
+		{
+			// Test if "Accept-Encoding: gzip" has been set in $context
+			$params = stream_context_get_params($context);
+			if (isset($params['options']['http']['header']) && preg_match('/gzip/', $params['options']['http']['header']) !== false)
+			{
+				$contents = file_get_contents('compress.zlib://'.$url, $use_include_path, $context, $offset);
+			}
+			else
+			{
+				$contents = file_get_contents($url, $use_include_path, $context, $offset);
+			}
+		}
+		else
+		{
+		  	$contents = file_get_contents($url, $use_include_path, NULL, $offset);
+		}
+
+		// test if the URL doesn't return a 200 status
+		if (isset($http_response_header) && strpos($http_response_header[0], '200') === false) {
+			// has a 301 redirect header been sent?
+			$pattern = "/^Location:\s*(.*)$/i";
+			$location_headers = preg_grep($pattern, $http_response_header);
+
+			if (!empty($location_headers) && preg_match($pattern, array_values($location_headers)[0], $matches)) {
+				// set the URL to that returned via the redirect header and repeat this loop
+				$url = $matches[1];
+				$repeat = true;
+			}
+		}
+  	} while ($repeat);
+    
+	// stop processing if the header isn't a good responce
+  	if (isset($http_response_header) && strpos($http_response_header[0], '200') === false)
+	{
+  		return false;
+  	}	
+	
+	// stop processing if the contents are too big
     if (empty($contents) || strlen($contents) > MAX_FILE_SIZE)
     {
         return false;
