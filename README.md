@@ -1,3 +1,6 @@
+**UPDATE**
+Please use this repo: https://github.com/voku/simple_html_dom
+
 # :warning: NUDE PICS!!!, KEEP READING! :warning:
 
 <br />
